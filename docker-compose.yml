@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+# a list of docker containers
+    mongodb:
+        image: mongo
+        ports:
+            - 27017:27017
+
+    tweet_collector:
+        build: tweet_collector/
+
+        volumes: # -v host_path:guest_path
+            - ./tweet_collector/src/:/app
+        depends_on:
+            - mongodb
+
+    postgres:
+        image: postgres
+        ports:
+            - 5555:5432
+        environment:
+            POSTGRES_PASSWORD: postgres
