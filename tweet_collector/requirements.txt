@@ -1,3 +1,4 @@
 tweepy
 dnspython
 pymongo
+python-dotenv
