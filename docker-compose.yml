@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-# a list of docker containers
+
     mongodb:
         image: mongo
         ports:
@@ -10,8 +10,9 @@ services:
     tweet_collector:
         build: tweet_collector/
 
-        volumes: # -v host_path:guest_path
+        volumes:
             - ./tweet_collector/src/:/app
+            - ./logs/:/log
         depends_on:
             - mongodb
 
@@ -21,3 +22,14 @@ services:
             - 5555:5432
         environment:
             POSTGRES_PASSWORD: postgres
+            # POSTGRES_USER: laurin
+            # POSTGRES_DB: twitterkram
+
+    etl_sentiment:
+        build: etl_sentiment/
+        volumes:
+            - ./etl_sentiment/src/:/app
+            - ./logs/:/log
+        depends_on:
+            - mongodb
+            - postgres
