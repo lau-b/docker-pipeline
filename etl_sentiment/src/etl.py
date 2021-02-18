@@ -28,6 +28,7 @@ for doc in res:
             sentiment['compound']
         ]
     )
+
 df_tweets = pd.DataFrame(tweets, columns=['screen_name', 'tweet', 'sentiment'])
 logging.info(f'fetched {len(df_tweets)} row from mongodb')
 
@@ -35,6 +36,9 @@ df_tweets.drop_duplicates(['screen_name', 'tweet'], inplace=True)
 logging.info(f'after dropping duplicates, {(len(df_tweets))} lines will have to be written to db')
 
 
-# engine = create_engine(con_string)
-# df.to_sql(con=engine, name='sentimental_tweets', if_exists='replace')
-
+engine = create_engine(con_string)
+try:
+    df_tweets.to_sql(con=engine, name='sentimental_tweets', if_exists='replace')
+    logging.info(f'{len(df_tweets)} lines written to database')
+except:
+    logging.error('no data written to postgres')
