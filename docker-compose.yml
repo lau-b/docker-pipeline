@@ -22,8 +22,8 @@ services:
             - 5555:5432
         environment:
             POSTGRES_PASSWORD: postgres
-            # POSTGRES_USER: laurin
-            # POSTGRES_DB: twitterkram
+            POSTGRES_USER: etlpipe
+            POSTGRES_DB: twitterdb
 
     etl_sentiment:
         build: etl_sentiment/

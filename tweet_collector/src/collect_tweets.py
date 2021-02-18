@@ -10,7 +10,7 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S',
     filename='/log/tweet_collector.log', filemode='a'
 )
-logging.info('Tweet Collector started.')
+logging.info('Tweet Collector started')
 # Setting up Twitter connection
 load_dotenv()
 auth = tweepy.OAuthHandler(os.getenv('consumer_key'), os.getenv('consumer_secret'))
