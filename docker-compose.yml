@@ -7,6 +7,15 @@ services:
         ports:
             - 27017:27017
 
+    etl_sentiment:
+        build: etl_sentiment/
+        volumes:
+            - ./etl_sentiment/src/:/app
+            - ./logs/:/log
+        depends_on:
+            - mongodb
+            - postgres
+
     tweet_collector:
         build: tweet_collector/
 
@@ -25,11 +34,3 @@ services:
             POSTGRES_USER: etlpipe
             POSTGRES_DB: twitterdb
 
-    etl_sentiment:
-        build: etl_sentiment/
-        volumes:
-            - ./etl_sentiment/src/:/app
-            - ./logs/:/log
-        depends_on:
-            - mongodb
-            - postgres
