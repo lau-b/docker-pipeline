@@ -16,6 +16,14 @@ services:
             - mongodb
             - postgres
 
+    slack_bot:
+        build: slack_bot/
+        volumes:
+            - ./slack_bot/src/:/app
+            - ./logs/:/log
+        depends_on:
+            - postgres
+
     tweet_collector:
         build: tweet_collector/
 
